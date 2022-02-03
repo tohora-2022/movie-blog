@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 export default function SearchBox (props) {
-  const callback = props.cb
+  const callback = props.handleSearchButton
   const [formData, setFormData] = useState({
     movie: ''
   })

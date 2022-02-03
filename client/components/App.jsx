@@ -4,15 +4,37 @@ import { getBlogs, getMovieRequest } from '../api'
 import MovieList from './MovieList'
 import MovieListHeading from './MovieListHeading'
 import SearchBox from './SearchBox'
+import AddFavourites from './AddFavourites'
+import RemoveFavourites from './RemoveFavourites'
 
 function App () {
   const [loading, setLoading] = useState(true)
   const [blogs, setBlogs] = useState([])
   const [movies, setMovies] = useState([])
-  const [searchValue, setSearchValue] = useState('')
+  const [searchValue, setSearchValue] = useState([])
+  const [favourites, setFavourites] = useState([])
 
   const updateSearchValue = (movie) => {
     setSearchValue(movie)
+  }
+
+  // function saveToLocalStorage (items) {
+  //   localStorage.setItem('react-movie-app-favourites', JSON.stringify(items))
+  // }
+
+  const addFavouriteMovie = (movie) => {
+    const newFavouriteList = [...favourites, movie]
+    setFavourites(newFavouriteList)
+    // saveToLocalStorage(newFavouriteList)
+  }
+
+  const removeFavouriteMovie = (movie) => {
+    const newFavouriteList = favourites.filter(
+      (favourite) => favourite.imdbID !== movie.imdbID
+    )
+
+    setFavourites(newFavouriteList)
+    // saveToLocalStorage(newFavouriteList)
   }
 
   useEffect(() => {
@@ -31,6 +53,14 @@ function App () {
         console.error(err.message)
       })
   }, [searchValue])
+
+  // useEffect(() => {
+  //   const movieFavourites = JSON.parse(
+  //     localStorage.getItem('react-movie-app-favourites')
+  //   )
+
+  //   setFavourites(movieFavourites)
+  // }, [])
 
   useEffect(() => {
     setLoading(true)
@@ -54,10 +84,17 @@ function App () {
       <div className='container-fluid movie-app'>
         <div className='row d-flex align-items-center mt-4 mb-4'>
           <MovieListHeading heading='Movies' />
-          <SearchBox searchValue={searchValue} cb={updateSearchValue} />
+          <SearchBox searchValue={searchValue} handleSearchButton={updateSearchValue} />
         </div>
         <div className='row'>
-          <MovieList movies={movies} />
+          <MovieList movies={movies} favouriteComponent={AddFavourites} handleFavouritesClick={addFavouriteMovie} />
+        </div>
+        <div className='row d-flex align-items-center mt-4 mb-4'>
+          <MovieListHeading heading='Favourites' />
+        </div>
+        <div className='row'>
+          <MovieList movies={favourites} handleFavouritesClick={removeFavouriteMovie}
+            favouriteComponent={RemoveFavourites} />
         </div>
       </div>
       <h1>My Movie Blog!</h1>
