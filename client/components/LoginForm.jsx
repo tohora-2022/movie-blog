@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function SearchBox (props) {
-  const callback = props.handleSearchButton
   const [formData, setFormData] = useState({
-    movie: ''
+    username: '',
+    password: ''
   })
 
   const handleChange = (e) => {
@@ -16,20 +17,25 @@ export default function SearchBox (props) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    callback(formData.movie)
     return null
   }
 
   return (
     <div className='col col-sm-3'>
       <form onSubmit={handleSubmit}>
-        <input name='movie'
+        <input name='username'
           className='form-control'
-          value={formData.movie}
-          placeholder='Type to search...'
+          value={formData.username}
+          placeholder='username'
           onChange={handleChange}
         />
-        <button>Search</button>
+        <input name='password'
+          className='form-control'
+          value={formData.password}
+          placeholder='password'
+          onChange={handleChange}
+        />
+        <Link to='/users/11/blog'>Sign in</Link>
       </form>
     </div>
   )

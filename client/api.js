@@ -14,3 +14,10 @@ export function getMovieRequest (searchValue) {
     .get(apiUrl)
     .then(response => response.body)
 }
+
+export function saveBlog (formData) {
+  return request
+    .post(blogUrl)
+    .send(formData)
+    .then(response => response.body)
+}

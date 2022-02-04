@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import { getBlogs, getMovieRequest } from '../api'
-// import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Login from './Login'
+import LoginForm from './LoginForm'
+import Blogs from './Blogs'
 import MovieList from './MovieList'
 import MovieListHeading from './MovieListHeading'
 import SearchBox from './SearchBox'
 import AddFavourites from './AddFavourites'
 import RemoveFavourites from './RemoveFavourites'
+import AddBlog from './AddBlog'
+import './app.css'
 
 function App () {
   const [loading, setLoading] = useState(true)
@@ -35,6 +41,10 @@ function App () {
 
     setFavourites(newFavouriteList)
     // saveToLocalStorage(newFavouriteList)
+  }
+
+  const addNewBlog = (blogs) => {
+    setBlogs(blogs)
   }
 
   useEffect(() => {
@@ -83,30 +93,31 @@ function App () {
     <>
       <div className='container-fluid movie-app'>
         <div className='row d-flex align-items-center mt-4 mb-4'>
-          <MovieListHeading heading='Movies' />
+          {movies.length !== 0 ? <MovieListHeading heading='Movies'/> : <MovieListHeading heading='Welcome to my blog'/>}
+          <Routes>
+            <Route path='/' element={<Login/>}/>
+            <Route path='/users/11' element={<LoginForm/>}/>
+          </Routes>
           <SearchBox searchValue={searchValue} handleSearchButton={updateSearchValue} />
         </div>
         <div className='row'>
           <MovieList movies={movies} favouriteComponent={AddFavourites} handleFavouritesClick={addFavouriteMovie} />
         </div>
         <div className='row d-flex align-items-center mt-4 mb-4'>
-          <MovieListHeading heading='Favourites' />
+          {favourites.length !== 0 && <MovieListHeading heading='Favourites' />}
         </div>
         <div className='row'>
           <MovieList movies={favourites} handleFavouritesClick={removeFavouriteMovie}
             favouriteComponent={RemoveFavourites} />
         </div>
       </div>
-      <h1>My Movie Blog!</h1>
-      <ul>
-        {blogs.map(blog => {
-          return (
-            <li key={blog.id} >
-              {blog.movie_title}
-            </li>
-          )
-        })}
-      </ul>
+      <div className='row d-flex mt-4 mb-4'>
+        <h1>My Movie Blogs!</h1>
+        <Blogs blogs={blogs}/>
+        <Routes>
+          <Route path='/users/11/blog' element={<AddBlog handleAddBlogButton={addNewBlog}/>}/>
+        </Routes>
+      </div>
     </>
   )
 }
