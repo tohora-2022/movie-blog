@@ -11,8 +11,8 @@ body {
 .image-container {
 	position: relative;
 	transition: transform 0.2s;
-  width: 301px;
-  height: 468px;
+  width: auto;
+  height: auto;
 }
 
 .image-container:hover {
