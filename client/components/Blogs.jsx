@@ -19,7 +19,7 @@ export default function Blogs () {
             <li key={blog.id} >
               <p>Movie: {blog.movie_title}</p>
               <p>Review: {blog.movie_review}</p>
-              <p>Rating: <img src='/images/1star.png' className='image'></img>{blog.star_rating}</p>
+              <p>Rating: <img src={`/images/${blog.star_rating}star.png`} className='image'></img></p>
             </li>
           )
         })}

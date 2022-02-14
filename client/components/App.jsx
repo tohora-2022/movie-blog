@@ -17,13 +17,11 @@ import { fetchBlogs } from '../actions'
 
 function App () {
   const [loading, setLoading] = useState(true)
-  // const [blogs, setBlogs] = useState([])
   const [movies, setMovies] = useState([])
   const [searchValue, setSearchValue] = useState([])
   const [favourites, setFavourites] = useState([])
 
   const dispatch = useDispatch()
-  // const blogs = useSelector(state => state)
 
   const updateSearchValue = (movie) => {
     setSearchValue(movie)
@@ -48,10 +46,6 @@ function App () {
     setFavourites(newFavouriteList)
     // saveToLocalStorage(newFavouriteList)
   }
-
-  // const addNewBlog = (blogs) => {
-  //   setBlogs(blogs)
-  // }
 
   useEffect(() => {
     setLoading(true)
@@ -78,10 +72,10 @@ function App () {
   //   setFavourites(movieFavourites)
   // }, [])
 
-  useEffect(() => {
-    setLoading(true)
-    dispatch(fetchBlogs)
-  }, [])
+  // useEffect(() => {
+  //   setLoading(true)
+  //   dispatch(fetchBlogs)
+  // }, [])
 
   if (loading) return (<p>'loading...'</p>)
 
@@ -92,7 +86,7 @@ function App () {
           {movies.length !== 0 ? <MovieListHeading heading='Movies'/> : <MovieListHeading heading='Welcome to my blog'/>}
           <Routes>
             <Route path='/' element={<Login/>}/>
-            <Route path='/users/11' element={<LoginForm/>}/>
+            <Route path='/login' element={<LoginForm/>}/>
           </Routes>
           <SearchBox searchValue={searchValue} handleSearchButton={updateSearchValue} />
         </div>
