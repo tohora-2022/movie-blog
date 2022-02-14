@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
-import { saveBlog } from '../api'
+import { useDispatch } from 'react-redux'
+import { addBlog } from '../actions'
 
-export default function AddBlog (props) {
-  const callback = props.handleAddBlogButton
+export default function AddBlog () {
+  // const callback = props.handleAddBlogButton
+  const dispatch = useDispatch()
+
   const [formData, setFormData] = useState({
     movieTitle: '',
     movieReview: '',
@@ -19,14 +22,12 @@ export default function AddBlog (props) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    saveBlog(formData)
-      .then(blogs => {
-        callback(blogs)
-        return null
-      })
-      .catch(err => {
-        console.log(err.message)
-      })
+    dispatch(addBlog(formData))
+    setFormData({
+      movieTitle: '',
+      movieReview: '',
+      starRating: ''
+    })
   }
 
   return (

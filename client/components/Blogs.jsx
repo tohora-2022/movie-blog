@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchBlogs } from '../actions'
 
-export default function Blogs (props) {
-  const blogs = props.blogs
+export default function Blogs () {
+  const blogs = useSelector(state => state.blogs)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchBlogs())
+  }, [])
+
   return (
     <div className='col'>
       <ul>

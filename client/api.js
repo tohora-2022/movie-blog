@@ -9,7 +9,7 @@ export function getBlogs () {
 }
 
 export function getMovieRequest (searchValue) {
-  const apiUrl = `http://www.omdbapi.com/?s=${searchValue}&apikey=263d22d8`
+  const apiUrl = `http://www.omdbapi.com/?s=${searchValue}&apikey=${process.env.SECRET_KEY}`
   return request
     .get(apiUrl)
     .then(response => response.body)

@@ -12,7 +12,7 @@ beforeEach(() => {
   return testDb.seed.run()
 })
 
-describe('getWidgets', () => {
+describe('getBlogs', () => {
   it('returns the correct widgets array', () => {
     return db.getWidgets(testDb)
       .then((widgets) => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { getBlogs, getMovieRequest } from '../api'
+import { getMovieRequest } from '../api'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Login from './Login'
 import LoginForm from './LoginForm'
@@ -12,13 +12,18 @@ import AddFavourites from './AddFavourites'
 import RemoveFavourites from './RemoveFavourites'
 import AddBlog from './AddBlog'
 import './app.css'
+import { useDispatch } from 'react-redux'
+import { fetchBlogs } from '../actions'
 
 function App () {
   const [loading, setLoading] = useState(true)
-  const [blogs, setBlogs] = useState([])
+  // const [blogs, setBlogs] = useState([])
   const [movies, setMovies] = useState([])
   const [searchValue, setSearchValue] = useState([])
   const [favourites, setFavourites] = useState([])
+
+  const dispatch = useDispatch()
+  // const blogs = useSelector(state => state)
 
   const updateSearchValue = (movie) => {
     setSearchValue(movie)
@@ -29,7 +34,8 @@ function App () {
   // }
 
   const addFavouriteMovie = (movie) => {
-    const newFavouriteList = [...favourites, movie]
+    const newList = favourites.filter(favourite => favourite.imdbID !== movie.imdbID)
+    const newFavouriteList = [...newList, movie]
     setFavourites(newFavouriteList)
     // saveToLocalStorage(newFavouriteList)
   }
@@ -43,9 +49,9 @@ function App () {
     // saveToLocalStorage(newFavouriteList)
   }
 
-  const addNewBlog = (blogs) => {
-    setBlogs(blogs)
-  }
+  // const addNewBlog = (blogs) => {
+  //   setBlogs(blogs)
+  // }
 
   useEffect(() => {
     setLoading(true)
@@ -74,17 +80,7 @@ function App () {
 
   useEffect(() => {
     setLoading(true)
-    getBlogs()
-      .then(blogs => {
-        setBlogs(blogs)
-        return null
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-      .catch((err) => {
-        console.error(err.message)
-      })
+    dispatch(fetchBlogs)
   }, [])
 
   if (loading) return (<p>'loading...'</p>)
@@ -113,9 +109,9 @@ function App () {
       </div>
       <div className='row d-flex mt-4 mb-4'>
         <h1>My Movie Blogs!</h1>
-        <Blogs blogs={blogs}/>
+        <Blogs/>
         <Routes>
-          <Route path='/users/11/blog' element={<AddBlog handleAddBlogButton={addNewBlog}/>}/>
+          <Route path='/users/11/blog' element={<AddBlog/>}/>
         </Routes>
       </div>
     </>

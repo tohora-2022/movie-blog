@@ -4,7 +4,7 @@ exports.up = (knex) => {
     table.integer('user_id').references('users.id')
     table.string('movie_title')
     table.string('movie_review')
-    table.integer('star_rating')
+    table.string('star_rating')
   })
 }
 
