@@ -1,17 +1,18 @@
 body {
-	background: #141414;
+	background: #580a0a;
 	color: #ffffff;
 }
 
 .movie-app > .row {
 	overflow-x: auto;
   flex-wrap: nowrap;
-  display: flex;
 }
 
 .image-container {
 	position: relative;
 	transition: transform 0.2s;
+  width: auto;
+  height: auto;
 }
 
 .image-container:hover {
@@ -35,10 +36,7 @@ body {
 	text-align: center;
 }
 
-.container-fluid {
-width: 100%;
-padding-right: var(--bs-gutter-x, 0.75rem);
-padding-left: var(--bs-gutter-x, 0.75rem);
-margin-right: auto;
-margin-left: auto;
+.image {
+  width: 15%;
+  height: 15%;
 }
