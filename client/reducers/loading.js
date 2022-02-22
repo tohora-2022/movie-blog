@@ -9,8 +9,6 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_BLOGS_PENDING:
       return true
-    case SET_ERROR:
-      return false
     default:
       return state
   }

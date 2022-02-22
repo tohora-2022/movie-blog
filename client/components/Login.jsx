@@ -1,11 +1,10 @@
 import React from 'react'
-import LoginForm from './LoginForm'
-import { Link } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 
-export default function Login (props) {
-  return (
-    <div className='col col-sm-3'>
-      <Link to={'/login'}> Login </Link>
-    </div>
-  )
+const LoginButton = () => {
+  const { loginWithRedirect } = useAuth0()
+
+  return <button onClick={() => loginWithRedirect()}>Log In</button>
 }
+
+export default LoginButton

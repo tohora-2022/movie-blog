@@ -9,7 +9,6 @@ export function fetchBlogs () {
     dispatch(setBlogsPending())
     return getBlogs()
       .then(blogs => {
-        console.log(blogs)
         dispatch(setBlogsSuccess(blogs))
         return null
       })

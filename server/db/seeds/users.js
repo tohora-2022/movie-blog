@@ -4,7 +4,7 @@ exports.seed = (knex) => {
     .then(() => {
       // Inserts seed entries
       return knex('users').insert([
-        { id: 11, user_name: 'Deepti', user_password: 'Movie123' }
+        { auth0_id: 11, user_name: 'Kajal', user_email: 'deepti.khanolkar@hotmail.com' }
       ])
     })
 }
